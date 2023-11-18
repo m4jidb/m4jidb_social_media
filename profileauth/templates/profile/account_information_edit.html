@@ -1,0 +1,35 @@
+{% extends 'parent/base.html' %}
+
+{% block title %}
+    Edit Account Information
+{% endblock %}
+
+{% block content %}
+    <h2>Edit Account Information</h2>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <h3>Edit Profile Images</h3>
+        {% for profile_image in profile_images %}
+            <label for="image_{{ profile_image.id }}_alt">Alt for Image {{ profile_image.id }}:</label>
+            <label>
+                <input type="text" name="image_{{ profile_image.id }}_alt" value="{{ profile_image.alt }}" />
+            </label>
+            <img src="{{ profile_image.image_file.url }}" alt="{{ profile_image.alt }}" style="height: 100px">
+            <label>
+                <input type="checkbox" name="deleted_images" value="{{ profile_image.id }}">
+            </label> Remove
+            <br>
+        {% endfor %}
+
+        <h3>Add New Profile Images</h3>
+        <input type="file" name="new_images" multiple>
+        <br>
+
+        <button type="submit">Update Information</button>
+    </form>
+
+    <a href="{% url 'profileauth:account_information' %}">Back to Account Information</a>
+{% endblock %}

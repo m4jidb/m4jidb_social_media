@@ -1,0 +1,17 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <title>social | {% block title %}{% endblock %}</title>
+    {% block head %}{% endblock %}
+</head>
+<body>
+    {% include 'partials/header.html' %}
+    <hr>
+    {% include 'partials/navigation.html' %}
+    <hr>
+    {% block content %}{% endblock %}
+    <hr>
+    {% include 'partials/footer.html' %}
+</body>

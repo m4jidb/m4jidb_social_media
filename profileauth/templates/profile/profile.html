@@ -1,0 +1,13 @@
+{% extends 'parent/base.html' %}
+
+{% block title %}
+    Profile
+{% endblock %}
+
+{% block content %}
+    <h2>Your Profile</h2>
+    <br>
+    <h3><a href="{% url 'profileauth:account_information' %}">Account information</a></h3>
+    <h3><a href="#">Posts</a></h3>
+    <h3><a href="#">Tickets</a></h3>
+{% endblock %}

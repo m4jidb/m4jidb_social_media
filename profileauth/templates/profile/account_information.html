@@ -1,0 +1,60 @@
+{% extends 'parent/base.html' %}
+
+{% block title %}
+    account-information
+{% endblock %}
+
+{% block content %}
+    <h2>Account information</h2>
+
+    <div>
+        {% for profile_image in profile_images %}
+            <img src="{{ profile_image.image_file.url }}" alt="{{ profile_image.alt }}" style="height: 100px">
+        {% empty %}
+            <p>No Photo</p>
+        {% endfor %}
+
+    <p><strong>Username:</strong> {{ user.username }}</p>
+    <p><strong>First Name:</strong> {{ user.first_name }}</p>
+    <p><strong>Last Name:</strong> {{ user.last_name }}</p>
+    <p><strong>Bio:</strong> {{ user.bio }}</p>
+    <p><strong>Birthday:</strong> {{ user.birthday }}</p>
+    <p><strong>Country:</strong> {{ user.country }}</p>
+    <p><strong>State:</strong> {{ user.state }}</p>
+    <p><strong>City:</strong> {{ user.city }}</p>
+    <p><strong>Address:</strong> {{ user.address }}</p>
+
+    <a href="{% url 'profileauth:account_information_edit' %}">
+        <button type="button">Edit</button>
+    </a>
+    </div>
+
+    <div>
+        <p><strong>Email:</strong> {{ user.email }}</p>
+
+        <a href=#>
+            <button type="button">Edit</button>
+        </a>
+    </div>
+
+    <div>
+        <p><strong>Phone Number:</strong> {{ user.phone }}</p>
+
+        <a href=#>
+            <button type="button">Edit</button>
+        </a>
+    </div>
+
+    <div>
+        <p><strong>Password:</strong>**********</p>
+
+        <a href=#>
+            <button type="button">Reset</button>
+        </a>
+
+        <a href=#>
+            <button type="button">Change</button>
+        </a>
+    </div>
+
+{% endblock %}
