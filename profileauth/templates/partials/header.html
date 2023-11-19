@@ -1,6 +1,8 @@
+{% load i18n %}
+{% load account %}
 {% load templatetags %}
 
-{% if request.user.is_authenticated %}
+{% if user.is_authenticated %}
     {% with request.user|last_image as image %}
         <a href="{% url 'profileauth:profile' %}">
             {# Display the user's last image if it exists, otherwise display a default image #}
@@ -13,12 +15,12 @@
                 >
             {% endif %}
             {# Display links to the user's profile and the logout page #}
-            {{ request.user.username }}
+            {{ user.username }}
         </a>
-        <a href="#">Log out</a>
+        <a href="{% url 'account_logout' %}">{% trans "Log out" %}</a>
     {% endwith %}
 {% else %}
     {# If the user is not authenticated, display links to the signup and login pages #}
-    <a href="{% url 'profileauth:signup' %}">Sign up</a>
-    <a href="{% url 'profileauth:login' %}">Log in</a>
+    <a href="{% url 'account_signup' %}">{% trans "Sign up" %}</a>
+    <a href="{% url 'account_login' %}">{% trans "Log in" %}</a>
 {% endif %}

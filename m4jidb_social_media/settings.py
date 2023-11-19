@@ -130,11 +130,11 @@ ADMINS = [
     ("m4jidghh", "m4jidghh@gmail.com")
 ]
 
-# LOGIN_REDIRECT_URL = '//'
-#
-# # LOGOUT_REDIRECT_URL = '//'
-#
-# LOGIN_URL = '//'
+LOGIN_REDIRECT_URL = '/profileauth/profile/'
+
+LOGOUT_REDIRECT_URL = '/profileauth/accounts/login/'
+
+LOGIN_URL = '/profileauth/accounts/login/'
 
 # EMAIL_BACKENDS
 
@@ -170,3 +170,4 @@ ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE = True
 # ACCOUNT_SIGNUP_FORM_CLASS = 'social.forms.'
 ACCOUNT_USERNAME_MIN_LENGTH = 3
+ACCOUNT_UNIQUE_EMAIL = True
