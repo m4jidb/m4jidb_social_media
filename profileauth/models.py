@@ -7,7 +7,7 @@ class User(AbstractUser):
     """
     User model that extends the AbstractUser model from Django's auth system.
     """
-    phone = models.CharField(max_length=11, null=True, blank=True, unique=True)
+    phone = models.CharField(max_length=11, null=True, blank=True)
     bio = models.TextField(blank=True)
     birthday = models.DateField(null=True, blank=True)
     address = models.TextField(blank=True)

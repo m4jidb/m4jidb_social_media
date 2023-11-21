@@ -21,6 +21,7 @@ SITE_ID = 1
 
 INSTALLED_APPS = [
     'profileauth.apps.ProfileauthConfig',
+    'social.apps.SocialConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -32,6 +33,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+    'taggit',
 ]
 
 MIDDLEWARE = [
@@ -168,6 +170,8 @@ ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 1
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE = True
-# ACCOUNT_SIGNUP_FORM_CLASS = 'social.forms.'
+ACCOUNT_FORMS = {
+    'signup': 'profileauth.forms.CustomSignupForm',
+}
 ACCOUNT_USERNAME_MIN_LENGTH = 3
-ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_UNIQUE_EMAIL = False

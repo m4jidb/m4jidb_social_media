@@ -3,6 +3,7 @@ from django.forms import SelectDateWidget
 from django.contrib import admin
 from .models import User, ProfileImage
 from django.contrib.auth.admin import UserAdmin
+from social.models import Post
 
 
 class UserAdminForm(forms.ModelForm):
@@ -16,6 +17,13 @@ class UserAdminForm(forms.ModelForm):
 class ProfileImageInline(admin.TabularInline):
     model = ProfileImage
     extra = 1
+
+
+class UserPostInline(admin.StackedInline):
+    model = Post
+    extra = 1
+    fields = ('title', 'content', 'status', 'slug', 'published_at', 'category', 'tags', 'likes')
+    show_change_link = True
 
 
 @admin.register(User)
@@ -40,9 +48,4 @@ class UserAdmin(UserAdmin):
     )
     date_hierarchy = 'date_joined'
     raw_id_fields = ['groups', 'user_permissions']
-    inlines = [ProfileImageInline]
-
-
-@admin.register(ProfileImage)
-class ProfileImageAdmin(admin.ModelAdmin):
-    pass
+    inlines = [ProfileImageInline, UserPostInline]
