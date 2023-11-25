@@ -6,14 +6,30 @@ from django_resized import ResizedImageField
 class User(AbstractUser):
     """
     User model that extends the AbstractUser model from Django's auth system.
+    Additional fields include phone, bio, birthday, address, country, state, city, and deleted_reason.
     """
+    # User's phone number
     phone = models.CharField(max_length=11, null=True, blank=True)
+
+    # User's biography
     bio = models.TextField(blank=True)
+
+    # User's birthday
     birthday = models.DateField(null=True, blank=True)
+
+    # User's address
     address = models.TextField(blank=True)
+
+    # User's country
     country = models.CharField(max_length=200, blank=True)
+
+    # User's state
     state = models.CharField(max_length=200, blank=True)
+
+    # User's city
     city = models.CharField(max_length=200, blank=True)
+
+    # Reason for user deletion
     deleted_reason = models.TextField(null=True, blank=True)
 
     @property
@@ -31,11 +47,16 @@ class User(AbstractUser):
         return f"<User: {self.username}>"
 
     class Meta:
+        # Order users by date joined
         ordering = ['-date_joined']
+
+        # Indexes for faster query performance
         indexes = [
             models.Index(fields=['username']),
             models.Index(fields=['email']),
         ]
+
+        # Verbose name for admin site
         verbose_name = "User"
         verbose_name_plural = "Users"
 
@@ -44,7 +65,10 @@ class ProfileImage(models.Model):
     """
     ProfileImage model that represents a user's profile image.
     """
+    # Foreign key to a User model
     profile = models.ForeignKey(User, on_delete=models.CASCADE, related_name="profile_images")
+
+    # Resized image field
     image_file = ResizedImageField(
         size=[500, 500],
         crop=['middle', 'center'],
@@ -52,15 +76,24 @@ class ProfileImage(models.Model):
         upload_to='profile_img/',
         blank=True,
     )
+
+    # Alt text for image
     alt = models.CharField(max_length=250, blank=True)
+
+    # Timestamps
     created_at = models.DateTimeField(auto_now_add=True)
     deleted_at = models.DateTimeField(auto_now=True)
 
     class Meta:
+        # Order images by creation date
         ordering = ['-created_at']
+
+        # Index for faster query performance
         indexes = [
             models.Index(fields=['-created_at'])
         ]
+
+        # Verbose name for admin site
         verbose_name = "ProfileImage"
         verbose_name_plural = "ProfileImages"
 

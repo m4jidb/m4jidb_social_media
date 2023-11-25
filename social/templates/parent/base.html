@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <title>social | {% block title %}{% endblock %}</title>
+    {% block head %}
+        <!-- Include locally hosted jQuery -->
+        <script src="{% static 'js/jquery-3.x.x.min.js' %}"></script>
+    {% endblock %}
+</head>
+<body>
+    {% include 'partials/header.html' %}
+    <hr>
+    {% include 'partials/navigation.html' %}
+    <hr>
+    {% block content %}{% endblock %}
+    <hr>
+    {% include 'partials/footer.html' %}
+
+    {% block scripts %}
+        <!-- Add the script for handling like functionality -->
+        <script>
+            $(document).ready(function() {
+                $('#like-post-form').on('submit', function(event) {
+                    event.preventDefault();
+
+                    const form = $(this);
+                    const url = form.data('url');
+
+                    $.ajax({
+                        type: 'POST',
+                        url: url,
+                        headers: {
+                            'X-CSRFToken': form.find('[name=csrfmiddlewaretoken]').val(),
+                        },
+                        success: function(data) {
+                            $('#likes-count').text(data.likes_count);
+                        },
+                    });
+                });
+            });
+        </script>
+    {% endblock %}
+</body>
+</html>

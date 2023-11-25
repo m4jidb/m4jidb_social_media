@@ -7,5 +7,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('profileauth/', include('profileauth.urls', namespace='profileauth')),
     path('profileauth/accounts/', include('allauth.urls')),
-    path('social', include('social.urls', namespace='social')),
+    path('social/', include('social.urls', namespace='social')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

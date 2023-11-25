@@ -1,0 +1,76 @@
+{% extends 'parent/base.html' %}
+
+{% block title %}
+    Post Detail
+{% endblock %}
+
+{% block content %}
+
+    {# post's title #}
+    <h1>{{ post.title }}</h1>
+
+    {# post's images #}
+    {% for image in post.post_images.all %}
+    <img src="{{ image.image_file.url }}" alt="{{ image.alt }}" />
+    {% endfor %}
+
+    {# post's content #}
+    <p>Content: {{ post.content }}</p>
+
+    {# post's author #}
+    <p>Author: {{ post.author.username }}</p>
+
+    {# post's published date #}
+    <p>Published at: {{ post.published_at }}</p>
+
+    {# post's Categories #}
+    <p>
+        Categories: {% for category in post.categories.all %}
+            {{ category.name }}{% if not forloop.last %}, {% endif %}
+        {% endfor %}
+    </p>
+
+    {# post's tags #}
+    <p>Tags: {{ post.tags.all|join:", " }}</p>
+
+    {# post's likes #}
+    <p>Likes: <span id="likes-count">{{ post.likes.count }}</span></p>
+
+    {# button for like post #}
+    {% if user.is_authenticated %}
+    <form id="like-post-form" method="post" data-url="{% url 'social:like_post' post.id %}">
+    {% csrf_token %}
+    <input type="submit" value="Like">
+    </form>
+    {% endif %}
+
+    {# post's comments #}
+    <h2>Comments</h2>
+    {% for comment in comments %}
+    <p>{{ comment.content }}</p>
+    <p>Author: {{ comment.author.username }}</p>
+    <p>Likes: {{ comment.likes.count }}</p>
+
+    {# comment's likes #}
+
+
+    {# button for like comment #}
+    {% if user.is_authenticated %}
+    <form method="post" action="{% url 'social:like_comment' comment.id %}">
+    {% csrf_token %}
+    <input type="submit" value="Like">
+    </form>
+    {% endif %}
+    {% endfor %}
+
+    {# field for add comment #}
+    {% if user.is_authenticated %}
+    <h3>Add a Comment</h3>
+    <form method="post" action="{% url 'social:add_comment' post.id %}">
+    {% csrf_token %}
+    {{ comment_form.as_p }}
+    <input type="submit" value="Submit">
+    </form>
+    {% endif %}
+
+{% endblock %}

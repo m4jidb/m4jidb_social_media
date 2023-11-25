@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Edit Post - {{ object.title }}</h2>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save Changes</button>
+  </form>
+
+  <a href="{% url 'post_detail' slug=object.slug %}">Cancel and Back to Post Detail</a>
+{% endblock %}
